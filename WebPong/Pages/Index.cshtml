@@ -1,0 +1,60 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "WebPong";
+}
+
+<section class="menu">
+    <h2>Menü</h2>
+
+    <div class="menu-row">
+        <label class="menu-label">Oyun Türü:</label>
+        <select id="gameMode" class="menu-select">
+            <option value="single">Tek Oyuncu</option>
+            <option value="two">İki Oyuncu</option>
+        </select>
+    </div>
+
+    <div class="menu-row" id="difficultyRow">
+        <label class="menu-label">Zorluk:</label>
+        <select id="difficulty" class="menu-select">
+            <option value="easy">Kolay</option>
+            <option value="medium" selected>Orta</option>
+            <option value="hard">Zor</option>
+        </select>
+    </div>
+
+    <div class="menu-row">
+        <button id="startBtn" class="menu-button">Başlat</button>
+        <button id="pauseBtn" class="menu-button" disabled>Duraklat</button>
+        <button id="resetBtn" class="menu-button" disabled>Sıfırla</button>
+    </div>
+</section>
+
+<section class="game">
+    <div class="scoreboard">
+        <div><strong>Sol</strong>: <span id="scoreLeft">0</span></div>
+        <div><strong>Sağ</strong>: <span id="scoreRight">0</span></div>
+    </div>
+    <canvas id="gameCanvas" width="800" height="500" aria-label="WebPong oyun alanı"></canvas>
+</section>
+
+<section class="help">
+    <h3>Kontroller</h3>
+    <ul>
+        <li><strong>Tek Oyuncu:</strong> Sol raket W/S ile, sağ raket yapay zekâ tarafından kontrol edilir.</li>
+        <li><strong>İki Oyuncu:</strong> Sol raket W/S, sağ raket O/L ile.</li>
+        <li><strong>Duraklat:</strong> P tuşu.</li>
+    </ul>
+</section>
+
+<script>
+    // Menüde zorluk yalnızca tek oyuncu modunda görünür
+    const modeSelect = document.getElementById('gameMode');
+    const difficultyRow = document.getElementById('difficultyRow');
+    function syncDifficultyVisibility() {
+        difficultyRow.style.display = modeSelect.value === 'single' ? 'flex' : 'none';
+    }
+    modeSelect.addEventListener('change', syncDifficultyVisibility);
+    syncDifficultyVisibility();
+</script>
